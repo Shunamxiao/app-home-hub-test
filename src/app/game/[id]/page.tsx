@@ -10,6 +10,7 @@ import { ArrowLeft, Mail, Star, Users, Package, Calendar, GitBranch, FileCode } 
 import { DownloadButton } from '@/components/download-button';
 import { GameDescription } from '@/components/game-description';
 import { FeedbackDialog } from '@/components/feedback-dialog';
+import { config } from '@/lib/config';
 
 type GameDetails = {
     _id: string;
@@ -44,7 +45,7 @@ type GameDetails = {
 
 async function getGameDetails(id: string): Promise<GameDetails | null> {
   try {
-    const response = await fetch(`https://api.us.apks.cc/game/info?id=${id}`, { next: { revalidate: 3600 } });
+    const response = await fetch(`${config.api.gameInfo}?id=${id}`, { next: { revalidate: 3600 } });
     const result = await response.json();
     
     if (response.ok && result.data && result.data.code === 200) {

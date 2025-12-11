@@ -3,10 +3,11 @@ import { GameListItem } from '@/components/game-list-item';
 import { SearchBar } from '@/components/search-bar';
 import type { Game } from '@/lib/games';
 import { Suspense } from 'react';
+import { config } from '@/lib/config';
 
 async function getGamesFromApi(): Promise<Game[]> {
   try {
-    const response = await fetch('https://api.us.apks.cc/game/search', { next: { revalidate: 3600 } });
+    const response = await fetch(config.api.gameSearch, { next: { revalidate: 3600 } });
     if (!response.ok) {
       console.error('Failed to fetch games from API');
       return [];
